@@ -28,20 +28,21 @@ def esignup():
     data = request.get_json()
     print("Data : ", data)
     print("Signup operation in Progress")
-    print(data['firstname'], data['lastname'], data['eid'], data['userid'], data['password'], data['mobileno'], data['emailid'], data['dob'], data['address'], data['gender'], data['doj'], data['technology'])
-    is_exists = check_user(data['userid'], data['eid'])
-    if is_exists:
+    is_exists = check_user(data['eid'], data['userid'])
+    print(is_exists)
+    if is_exists == True:
+        '''
+        1. Check userid, Eid exists in db or not 
+            1. If exists send error message
+            2. Else pass data to service layer
+        '''
         # Server side validation
         # Pass data to service layer
         return "The user already exist, please try again with different user."
-    resp = add_user(data['firstname'], data['lastname'], data['eid'], data['userid'], data['password'], data['mobileno'], data['emailid'], data['dob'], data['address'], data['gender'], data['doj'], data['technology'])
-    '''
-    1. Check userid, Eid exists in db or not 
-        1. If exists send error message
-        2. Else pass data to service layer
-    '''
+    else:
+        resp = add_user(data['firstname'], data['lastname'], data['eid'], data['userid'], data['password'], data['mobileno'], data['emailid'], data['dob'], data['address'], data['gender'], data['doj'], data['technology'])
 
-    return resp
+        return resp
 
 
 if __name__ == '__main__':

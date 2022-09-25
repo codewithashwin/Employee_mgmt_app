@@ -84,18 +84,23 @@ def db_ucheck(a1,a2):
     with DataAccessObject("172.23.234.199", "pythondb", "python", "123456", 5432) as cursor:
         # cursor ojbect
         # select query
-        data = cursor.execute(f"SELECT eid, userid FROM employee WHERE eid={a1} AND userid={a2}")
-        return data
+        cursor.execute("SELECT * FROM employee WHERE eid={} AND userid={}".format(a1, a2))
+        data = cursor.fetchone()
+    return bool(data)
 
 def db_insert(*args):
     firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology = args
+    record = (firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology)
+    query = "INSERT INTO employee values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+
     with DataAccessObject("172.23.234.199", "pythondb", "python", "123456", 5432) as cursor:
-        cursor.execute(f"INSERT INTO employee(firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology) values({firstname}, {lastname}, {eid}, {userid}, {password}, {mobileno}, {emailid}, {dob}, {address}, {gender}, {doj}, {technology})")
+        # cursor.execute(f"INSERT INTO employee(firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology) values({firstname}, {lastname}, {eid}, {userid}, {password}, {mobileno}, {emailid}, {dob}, {address}, {gender}, {doj}, {technology})")
+        cursor.execute(query, record)
     
     return f"{firstname} {lastname} user created successfully."
     
 
 
 if __name__ == "__main__":
-    db_ucheck(1, "2")
+    db_ucheck(1, 2)
     
