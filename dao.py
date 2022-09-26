@@ -79,7 +79,7 @@ class DataAccessObject:
 
 
 
-def db_ucheck(a1,a2):
+def db_ucheck(a1,a2): # db_ucheck(data['eid'], data['userid'])
     # Db Connection
     with DataAccessObject("172.31.17.16", "pythondb", "python", "123456", 5432) as cursor:
         # cursor ojbect
@@ -100,6 +100,13 @@ def db_insert(*args):
         cursor.execute(query, record)
     
     return {"message":f"{firstname} {lastname} user created successfully."}
+
+def user_credentials(id, password):
+    with DataAccessObject("172.31.17.16", "pythondb", "python", "123456", 5432) as cursor:
+        cursor.execute("SELECT * FROM employee where eid={} AND password={}".format(id, password))
+        data = cursor.fetchone()
+        print(data)
+    return False
     
 
 

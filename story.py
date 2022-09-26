@@ -49,9 +49,20 @@ Payload         : {json format}
 
 3. Update Password   UPDATE
 
+API Call:
+--------------
+Request URL     : http://127.0.0.1:5000/update
+Request Method  : POST
+Payload         : {json format}
+
+
 
 4. Deactivate account DELETE
 
-
+API Call:
+--------------
+Request URL     : http://127.0.0.1:5000/delete
+Request Method  : POST
+Payload         : {json format}
 
 '''

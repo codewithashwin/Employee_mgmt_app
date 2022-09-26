@@ -1,6 +1,6 @@
 from flask import Flask, request
 from dao import DataAccessObject
-from service import check_user, add_user
+from service import check_user, add_user, check_user_credential
 
 app = Flask(__name__)
 
@@ -23,7 +23,7 @@ def create_db():
     return "<h2>Table created successfully.</h2>"
 
 
-@app.route('/esignup/',methods = ['POST'])
+@app.route('/signup/',methods = ['POST'])
 def esignup():
     data = request.get_json()
     print("Data : ", data)
@@ -42,6 +42,28 @@ def esignup():
     resp = add_user(data['firstname'], data['lastname'], data['eid'], data['userid'], data['password'], data['mobileno'], data['emailid'], data['dob'], data['address'], data['gender'], data['doj'], data['technology'])
 
     return resp
+
+@app.route("/signin/", methods=['POST'])
+def esignin():
+    data = request.get_json()
+    print("data signin: ", data)
+    resp = check_user_credential(data['eid'], data['password'])
+    if resp:
+        return {"message": "User loged in successfully."}
+    return {"message": "eid and password are not match, Please check your credentials."}
+
+@app.route('/update_password/', methods=['PUT'])
+def update_pass():
+    data = request.get_json()
+    print("data for modification: ", data)
+    return data
+
+@app.route('/delete_emp/', methods=['DELETE'])
+def delete_emp():
+    data = request.get_json()
+    print("data for modification: ", data)
+    return data
+
 
 
 if __name__ == '__main__':
