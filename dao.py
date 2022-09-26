@@ -81,23 +81,25 @@ class DataAccessObject:
 
 def db_ucheck(a1,a2):
     # Db Connection
-    with DataAccessObject("172.23.234.199", "pythondb", "python", "123456", 5432) as cursor:
+    with DataAccessObject("172.31.17.16", "pythondb", "python", "123456", 5432) as cursor:
         # cursor ojbect
         # select query
         cursor.execute("SELECT * FROM employee WHERE eid={} AND userid={}".format(a1, a2))
         data = cursor.fetchone()
-    return bool(data)
+        if data == None:
+            return False
+        return True
 
 def db_insert(*args):
     firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology = args
     record = (firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology)
     query = "INSERT INTO employee values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
-    with DataAccessObject("172.23.234.199", "pythondb", "python", "123456", 5432) as cursor:
+    with DataAccessObject("172.31.17.16", "pythondb", "python", "123456", 5432) as cursor:
         # cursor.execute(f"INSERT INTO employee(firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology) values({firstname}, {lastname}, {eid}, {userid}, {password}, {mobileno}, {emailid}, {dob}, {address}, {gender}, {doj}, {technology})")
         cursor.execute(query, record)
     
-    return f"{firstname} {lastname} user created successfully."
+    return {"message":f"{firstname} {lastname} user created successfully."}
     
 
 

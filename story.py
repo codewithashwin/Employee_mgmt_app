@@ -31,7 +31,7 @@ Story:
 
 API Call:
 --------------
-Request URL     : http://localhost:8034/esignup
+Request URL     : http://127.0.0.1:5000/esignup
 Request Method  : POST
 Payload         : {json format}
 
@@ -39,7 +39,17 @@ Payload         : {json format}
       
 
 2. Signin  RETRIEVE
+
+
+API Call:
+--------------
+Request URL     : http://127.0.0.1:5000/esignin
+Request Method  : POST
+Payload         : {json format}
+
 3. Update Password   UPDATE
+
+
 4. Deactivate account DELETE
 
 
