@@ -4,6 +4,7 @@ from service import check_user, add_user, check_user_credential
 
 app = Flask(__name__)
 
+
 # Employee signup
 '''
 End point implementation
@@ -18,7 +19,7 @@ def home():
 
 @app.route("/createdb", methods=['GET'])
 def create_db():
-    with DataAccessObject("172.31.17.16", "pythondb", "python", "123456", 5432) as cursor:
+    with DataAccessObject("172.26.43.18", "pythondb", "python", "123456", 5432) as cursor:
         cursor.execute("CREATE TABLE employee(FirstName VARCHAR(100), LastName VARCHAR(100), Eid INTEGER, UserId INTEGER, Password VARCHAR(50), MobileNo VARCHAR(12), EmailId VARCHAR(50), DOB VARCHAR(50), Address VARCHAR(50), Gender VARCHAR(10), DOJ VARCHAR(50), Technology VARCHAR(50))")
     return "<h2>Table created successfully.</h2>"
 

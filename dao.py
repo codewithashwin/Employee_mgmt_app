@@ -81,7 +81,7 @@ class DataAccessObject:
 
 def db_ucheck(a1,a2): # db_ucheck(data['eid'], data['userid'])
     # Db Connection
-    with DataAccessObject("172.31.17.16", "pythondb", "python", "123456", 5432) as cursor:
+    with DataAccessObject("172.26.43.18", "pythondb", "python", "123456", 5432) as cursor:
         # cursor ojbect
         # select query
         cursor.execute("SELECT * FROM employee WHERE eid={} AND userid={}".format(a1, a2))
@@ -95,21 +95,23 @@ def db_insert(*args):
     record = (firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology)
     query = "INSERT INTO employee values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
-    with DataAccessObject("172.31.17.16", "pythondb", "python", "123456", 5432) as cursor:
+    with DataAccessObject("172.26.43.18", "pythondb", "python", "123456", 5432) as cursor:
         # cursor.execute(f"INSERT INTO employee(firstname, lastname, eid, userid, password, mobileno, emailid, dob, address, gender, doj, technology) values({firstname}, {lastname}, {eid}, {userid}, {password}, {mobileno}, {emailid}, {dob}, {address}, {gender}, {doj}, {technology})")
         cursor.execute(query, record)
     
     return {"message":f"{firstname} {lastname} user created successfully."}
 
-def user_credentials(id, password):
-    with DataAccessObject("172.31.17.16", "pythondb", "python", "123456", 5432) as cursor:
-        cursor.execute("SELECT * FROM employee where eid={} AND password={}".format(id, password))
+def user_credentials(u_id, u_password):
+    with DataAccessObject("172.26.43.18", "pythondb", "python", "123456", 5432) as cursor:
+        cursor.execute("SELECT * FROM employee where eid={} AND password='{}'".format(u_id, u_password))
         data = cursor.fetchone()
-        print(data)
-    return False
+    if data == None:
+        return False
+    return True
     
 
 
 if __name__ == "__main__":
-    db_ucheck(1, 2)
+    # Tesing purpose
+    user_credentials(1, "123456789")
     
