@@ -1,6 +1,6 @@
 from flask import Flask, request
 from dao import DataAccessObject
-from service import check_user, add_user, check_user_credential, update_user_password
+from service import check_user, add_user, check_user_credential, update_user_password, delete_employee
 
 app = Flask(__name__)
 
@@ -67,8 +67,12 @@ def update_pass():
 def delete_emp():
     data = request.get_json()
     print("data for modification: ", data)
+    resp = check_user_credential(data['eid'], data['password'])
+    if resp:
+        delete_user = delete_employee(data['eid'])
+        return delete_user
+    return {"message":"eid and password are not match, Please check your credentials."}
 
-    return data
 
 
 

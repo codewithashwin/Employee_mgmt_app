@@ -1,4 +1,4 @@
-from dao import db_ucheck, db_insert, user_credentials, update_password
+from dao import db_ucheck, db_insert, user_credentials, update_password, delete_user
 
 
 def check_user(a1, a2): # check_use(data['eid'], data['userid'])
@@ -15,4 +15,8 @@ def check_user_credential(e_id, e_pass):
 
 def update_user_password(e_id, e_new_pass):
     resp = update_password(e_id, e_new_pass)
+    return resp
+
+def delete_employee(u_id):
+    resp = delete_user(u_id)
     return resp
