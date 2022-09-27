@@ -52,7 +52,7 @@ Payload         : {json format}
 API Call:
 --------------
 Request URL     : http://127.0.0.1:5000/update
-Request Method  : POST
+Request Method  : PUT
 Payload         : {json format}
 
 
@@ -62,7 +62,7 @@ Payload         : {json format}
 API Call:
 --------------
 Request URL     : http://127.0.0.1:5000/delete
-Request Method  : POST
+Request Method  : DELETE
 Payload         : {json format}
 
 '''

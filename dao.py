@@ -108,6 +108,11 @@ def user_credentials(u_id, u_password):
     if data == None:
         return False
     return True
+
+def update_password(u_id, u_password):
+    with DataAccessObject("172.26.43.18", "pythondb", "python", "123456", 5432) as cursor:
+        cursor.execute(f"UPDATE employee SET password = '{u_password}' WHERE eid = {u_id};")
+    return {"message": "user password update successfully"}
     
 
 

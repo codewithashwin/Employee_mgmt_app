@@ -1,6 +1,6 @@
 from flask import Flask, request
 from dao import DataAccessObject
-from service import check_user, add_user, check_user_credential
+from service import check_user, add_user, check_user_credential, update_user_password
 
 app = Flask(__name__)
 
@@ -57,12 +57,17 @@ def esignin():
 def update_pass():
     data = request.get_json()
     print("data for modification: ", data)
-    return data
+    resp = check_user_credential(data['eid'], data['old_password'])
+    if resp:
+        update_password = update_user_password(data['eid'], data['new_password'])
+        return update_password
+    return {"message":"eid and password are not match, Please check your credentials."}
 
 @app.route('/delete_emp/', methods=['DELETE'])
 def delete_emp():
     data = request.get_json()
     print("data for modification: ", data)
+
     return data
 
 
